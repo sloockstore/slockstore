@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLock Store - مركز المستندات والأدلة التقنية والعروض</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Tajawal for Arabic, Inter for English -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            gold: '#ECC832',
+                            'gold-dark': '#d4b122',
+                            dark: '#121212',
+                            black: '#0A0A0A',
+                            slate: '#1e293b',
+                            gray: '#f8fafc'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Tajawal', 'Inter', 'sans-serif'],
+                        en: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+        }
+        .en-mode body {
+            font-family: 'Inter', sans-serif;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ECC832;
+        }
+
+        .coupon-card-3d {
+            perspective: 1000px;
+        }
+        .coupon-inner {
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            transform-style: preserve-3d;
+        }
+        .coupon-card-3d:hover .coupon-inner {
+            transform: rotateY(-6deg) rotateX(4deg) scale(1.01);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-zinc-950 dark:text-slate-100 transition-colors duration-200 min-h-screen flex flex-col">
+
+    <!-- HEADER / NAVBAR -->
+    <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-white/90 dark:bg-zinc-900/90 border-b border-slate-200 dark:border-zinc-800 shadow-sm transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- BRAND TEXT ONLY (LOGO REMOVED) -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="switchSection('catalog')">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-extrabold text-2xl tracking-tight text-slate-900 dark:text-white" id="nav-brand-title">متجر الأقفال الذكية</span>
+                            <span class="bg-brand-gold text-xs text-black font-bold px-2.5 py-0.5 rounded-full uppercase">SLock</span>
+                        </div>
+                        <p class="text-xs text-slate-500 dark:text-slate-400" id="nav-brand-subtitle">مركز المستندات والدعم التقني</p>
+                    </div>
+                </div>
+
+                <!-- NAVIGATION LINKS -->
+                <nav class="hidden md:flex items-center gap-1 bg-slate-100 dark:bg-zinc-800/60 p-1.5 rounded-xl border border-slate-200 dark:border-zinc-700/50">
+                    <button onclick="switchSection('catalog')" id="nav-btn-catalog" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-white dark:bg-zinc-900 shadow-sm text-slate-900 dark:text-white">
+                        <i class="fa-solid fa-book-bookmark ml-1.5 mr-1.5"></i> <span id="t-nav-catalog">دليل الأجهزة</span>
+                    </button>
+                    <button onclick="switchSection('offers')" id="nav-btn-offers" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all relative">
+                        <span class="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] font-black px-1.5 py-0.5 rounded-full animate-pulse">جديد</span>
+                        <i class="fa-solid fa-tags ml-1.5 mr-1.5 text-brand-gold"></i> <span id="t-nav-offers">العروض والخصومات</span>
+                    </button>
+                    <button onclick="switchSection('calculator')" id="nav-btn-calculator" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all">
+                        <i class="fa-solid fa-ruler-combined ml-1.5 mr-1.5"></i> <span id="t-nav-calc">حاسبة التوافق</span>
+                    </button>
+                    <button onclick="switchSection('troubleshoot')" id="nav-btn-troubleshoot" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all">
+                        <i class="fa-solid fa-wrench ml-1.5 mr-1.5"></i> <span id="t-nav-trouble">استكشاف الأعطال</span>
+                    </button>
+                </nav>
+
+                <!-- ACTIONS & CONTROLS -->
+                <div class="flex items-center gap-3">
+                    <!-- Language Switcher -->
+                    <button onclick="toggleLanguage()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-zinc-700 text-xs font-bold bg-white dark:bg-zinc-900 hover:bg-slate-50 dark:hover:bg-zinc-800 transition">
+                        <i class="fa-solid fa-globe text-brand-gold"></i>
+                        <span id="lang-label">English</span>
+                    </button>
+
+                    <!-- Theme Toggle -->
+                    <button onclick="toggleTheme()" class="p-2 rounded-lg border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-slate-50 dark:hover:bg-zinc-800 transition text-slate-600 dark:text-slate-300">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:inline text-brand-gold"></i>
+                    </button>
+
+                    <!-- Phone Support Button Single Line -->
+                    <a href="tel:+966920033574" class="hidden sm:inline-flex items-center justify-center gap-2 bg-brand-gold hover:bg-brand-gold-dark text-black font-extrabold px-4 py-2.5 rounded-xl text-sm transition shadow-sm hover:shadow whitespace-nowrap" dir="ltr">
+                        <i class="fa-solid fa-phone text-xs"></i>
+                        <span>+966 9200 33574</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- SECTION 1: CATALOG & SEARCH -->
+        <section id="sec-catalog" class="space-y-8">
+            <div class="bg-gradient-to-r from-zinc-900 via-slate-900 to-zinc-900 text-white rounded-3xl p-8 md:p-12 shadow-xl relative overflow-hidden border border-zinc-800">
+                <div class="absolute -right-10 -bottom-10 w-60 h-60 opacity-10 pointer-events-none">
+                    <i class="fa-solid fa-shield-halved text-[220px] text-brand-gold"></i>
+                </div>
+                <div class="max-w-3xl space-y-4 relative z-10">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-gold/20 text-brand-gold text-xs font-bold border border-brand-gold/30">
+                        <i class="fa-solid fa-circle-check"></i> <span id="t-hero-badge">المكتبة الرقمية الرسمية لأجهزة SLock Store</span>
+                    </div>
+                    <h1 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight" id="t-hero-title">
+                        دليل التركيب والتشغيل للأقفال الذكية
+                    </h1>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed" id="t-hero-desc">
+                        ابحث عن المخططات الهندسية، أدلة الاستخدام، برمجيات الربط بالتطبيق (Tuya / TTLock)، ومواصفات الأقفال.
+                    </p>
+
+                    <!-- Search Box -->
+                    <div class="pt-4 flex flex-col sm:flex-row gap-3">
+                        <div class="relative flex-grow">
+                            <i class="fa-solid fa-magnifying-glass absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 rtl:right-4 ltr:left-4 ltr:right-auto"></i>
+                            <input type="text" id="search-input" oninput="renderCatalog()" placeholder="ابحث باسم القفل، الموديل (مثال: G16, CX8)، أو طريقة الفتح..." class="w-full pr-11 pl-4 ltr:pl-11 ltr:pr-4 py-3.5 rounded-2xl bg-white/10 backdrop-blur border border-white/20 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-gold transition text-sm">
+                        </div>
+                        <button onclick="resetFilters()" class="px-5 py-3.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-2xl text-sm transition flex items-center justify-center gap-2 border border-slate-700">
+                            <i class="fa-solid fa-rotate-left"></i> <span id="t-reset">إعادة ضبط</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Filters -->
+            <div class="flex items-center justify-between gap-4 overflow-x-auto pb-2 scrollbar-none" id="category-filters"></div>
+
+            <!-- Catalog Grid -->
+            <div id="catalog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            
+            <!-- Empty State -->
+            <div id="empty-state" class="hidden text-center py-16 bg-white dark:bg-zinc-900 rounded-3xl border border-slate-200 dark:border-zinc-800">
+                <i class="fa-solid fa-box-open text-5xl text-slate-300 dark:text-zinc-700 mb-4"></i>
+                <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200" id="t-empty-title">لم يتم العثور على نتائج</h3>
+                <p class="text-slate-500 text-sm mt-1" id="t-empty-desc">جرّب كلمات بحث أخرى أو تغيير الفلتر المحدد.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 2: OFFERS & PROMOTIONS -->
+        <section id="sec-offers" class="hidden space-y-10">
+            <div class="text-center max-w-3xl mx-auto space-y-3">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-gold/20 text-brand-gold text-xs font-bold border border-brand-gold/30">
+                    <i class="fa-solid fa-bolt"></i> <span id="t-offers-badge">خصومات وعروض لفترة محدودة</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white" id="t-offers-title">العروض والخدمات المضافة الحالية</h2>
+                <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed" id="t-offers-desc">استفد من الكوبونات الحصرية والتركيب المجاني عند الشراء المباشر من متجرنا الإلكتروني.</p>
+            </div>
+
+            <!-- 3D Interactive Coupon Component -->
+            <div class="coupon-card-3d max-w-2xl mx-auto">
+                <div class="coupon-inner bg-gradient-to-br from-zinc-900 via-slate-900 to-black border-2 border-brand-gold rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden text-white">
+                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-brand-gold/10 rounded-full blur-2xl"></div>
+                    
+                    <div class="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+                        <div class="space-y-2 text-center sm:text-right">
+                            <span class="inline-block bg-brand-gold/20 text-brand-gold text-xs font-bold px-3 py-1 rounded-lg border border-brand-gold/30">
+                                <i class="fa-solid fa-ticket ml-1"></i> كود خاص بالدعم والعملاء
+                            </span>
+                            <h3 class="text-2xl font-black text-white" id="t-coupon-title">كوبون الخصم الإضافي</h3>
+                            <p class="text-xs text-slate-300" id="t-coupon-desc">أدخل الرمز في السلة للحصول على الخصومات الفورية.</p>
+                        </div>
+
+                        <!-- Code Display Box -->
+                        <div class="bg-zinc-950 border-2 border-dashed border-brand-gold/60 rounded-2xl p-4 text-center min-w-[200px] flex flex-col items-center justify-center gap-2">
+                            <span class="text-[11px] text-slate-400 font-bold uppercase">كود الخصم / Code</span>
+                            <span class="text-3xl font-black text-brand-gold tracking-widest" id="coupon-code-text">cart7</span>
+                            <button onclick="copyCouponCode()" class="w-full mt-1 bg-brand-gold hover:bg-brand-gold-dark text-black font-extrabold text-xs py-2 px-4 rounded-xl transition shadow flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-copy"></i> <span id="copy-btn-label">نسخ الكوبون</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Offers Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                
+                <!-- Offer 1 -->
+                <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-sm hover:border-brand-gold transition">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 bg-brand-gold/10 text-brand-gold rounded-2xl flex items-center justify-center text-xl font-bold border border-brand-gold/30">
+                            %15
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2" id="t-off1-title">خصم 15% على إجمالي السلة</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed" id="t-off1-desc">
+                                عند وصول مجموع مشترياتك إلى <strong class="text-brand-gold font-bold">1000 ريال سعودي</strong> أو أكثر (بعد إحساب قيمة الضريبة المضافة)، يتم تطبيق خصم 15% تلقائياً على إجمالي المبلغ.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 dark:border-zinc-800 flex items-center justify-between text-xs font-bold text-slate-400">
+                        <span class="text-emerald-500"><i class="fa-solid fa-circle-check ml-1"></i> ساري على كافة المنتجات</span>
+                        <a href="https://slockstore.com/ar" target="_blank" class="text-brand-gold hover:underline flex items-center gap-1">التسوق الآن <i class="fa-solid fa-arrow-left text-[10px]"></i></a>
+                    </div>
+                </div>
+
+                <!-- Offer 2 -->
+                <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-sm hover:border-brand-gold transition">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 bg-emerald-500/10 text-emerald-500 rounded-2xl flex items-center justify-center text-xl font-bold border border-emerald-500/30">
+                            <i class="fa-solid fa-screwdriver-wrench"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2" id="t-off2-title">خدمة التركيب المجاني بالموقع</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-3" id="t-off2-desc">
+                                احصل على خدمة التركيب المجانية بواسطة فريقنا المختص عند الشراء والطلب لموديلات الأقفال التالية:
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="searchProductFromOffer('g16')" class="bg-slate-100 dark:bg-zinc-800 hover:bg-brand-gold hover:text-black text-slate-800 dark:text-slate-200 px-3 py-1 rounded-xl text-xs font-bold border border-slate-200 dark:border-zinc-700 transition">موديل G16</button>
+                                <button onclick="searchProductFromOffer('cx8')" class="bg-slate-100 dark:bg-zinc-800 hover:bg-brand-gold hover:text-black text-slate-800 dark:text-slate-200 px-3 py-1 rounded-xl text-xs font-bold border border-slate-200 dark:border-zinc-700 transition">موديل CX8</button>
+                                <button onclick="searchProductFromOffer('cx5')" class="bg-slate-100 dark:bg-zinc-800 hover:bg-brand-gold hover:text-black text-slate-800 dark:text-slate-200 px-3 py-1 rounded-xl text-xs font-bold border border-slate-200 dark:border-zinc-700 transition">موديل CX5</button>
+                                <button onclick="searchProductFromOffer('cx1')" class="bg-slate-100 dark:bg-zinc-800 hover:bg-brand-gold hover:text-black text-slate-800 dark:text-slate-200 px-3 py-1 rounded-xl text-xs font-bold border border-slate-200 dark:border-zinc-700 transition">موديل CX1</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 dark:border-zinc-800 flex items-center justify-between text-xs font-bold text-slate-400">
+                        <span><i class="fa-solid fa-location-dot text-brand-gold ml-1"></i> للمدن المشمولة بالخدمة</span>
+                        <a href="https://wa.me/966920033574" target="_blank" class="text-emerald-500 hover:underline flex items-center gap-1">طلب التركيب عبر الواتساب <i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 3: CALCULATOR -->
+        <section id="sec-calculator" class="hidden space-y-8">
+            <div class="bg-white dark:bg-zinc-900 rounded-3xl p-6 sm:p-10 border border-slate-200 dark:border-zinc-800 shadow-sm">
+                <div class="max-w-2xl mb-8">
+                    <span class="text-brand-gold font-bold text-xs uppercase tracking-wider" id="t-calc-sub">أداة القياس التفاعلية</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1" id="t-calc-title">حاسبة توافق الأقفال الذكية مع الباب</h2>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mt-2" id="t-calc-desc">أدخل أبعاد بابك للتأكد من توافق القفل الذكي والحصول على التوصية المناسبة لسنتر القفل (Mortise).</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <div class="lg:col-span-7 space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="bg-slate-50 dark:bg-zinc-800/50 p-4 rounded-2xl border border-slate-200 dark:border-zinc-700">
+                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2" id="t-lbl-thick">سمك الباب (Door Thickness)</label>
+                                <div class="relative">
+                                    <input type="number" id="calc-thick" value="45" min="20" max="120" oninput="calculateCompatibility()" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 font-bold text-lg text-slate-900 dark:text-white focus:ring-2 focus:ring-brand-gold outline-none">
+                                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold ltr:right-3 ltr:left-auto">mm</span>
+                                </div>
+                                <p class="text-[11px] text-slate-500 mt-2" id="t-hint-thick">المعيار القياسي: 38mm - 70mm</p>
+                            </div>
+
+                            <div class="bg-slate-50 dark:bg-zinc-800/50 p-4 rounded-2xl border border-slate-200 dark:border-zinc-700">
+                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2" id="t-lbl-stile">عرض فريم الباب (Door Stile Width)</label>
+                                <div class="relative">
+                                    <input type="number" id="calc-stile" value="110" min="30" max="250" oninput="calculateCompatibility()" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 font-bold text-lg text-slate-900 dark:text-white focus:ring-2 focus:ring-brand-gold outline-none">
+                                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold ltr:right-3 ltr:left-auto">mm</span>
+                                </div>
+                                <p class="text-[11px] text-slate-500 mt-2" id="t-hint-stile">عرض الإطار الخشبي أو الألمنيوم</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 dark:bg-zinc-800/50 p-4 rounded-2xl border border-slate-200 dark:border-zinc-700">
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2" id="t-lbl-type">نوع الباب (Door Material)</label>
+                            <select id="calc-type" onchange="calculateCompatibility()" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-brand-gold outline-none">
+                                <option value="wood" id="opt-wood">خشب طبيعي / كبس (Wooden Door)</option>
+                                <option value="aluminum" id="opt-aluminum">ألمنيوم / قطاعات ضيقة (Aluminum / Slim Profile)</option>
+                                <option value="glass" id="opt-glass">زجاج سيكوريت بدون فريم (Frameless Glass)</option>
+                                <option value="metal" id="opt-metal">حديد / معدني خارجي (Metal / Armor Door)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 bg-gradient-to-br from-slate-900 to-zinc-900 text-white rounded-2xl p-6 border border-zinc-800 shadow-md">
+                        <h3 class="text-lg font-bold flex items-center gap-2 mb-4">
+                            <i class="fa-solid fa-square-poll-vertical text-brand-gold"></i>
+                            <span id="t-res-title">نتيجة التوافق والسنتر المناسب</span>
+                        </h3>
+                        <div id="calc-result-box" class="space-y-4"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: TROUBLESHOOTING -->
+        <section id="sec-troubleshoot" class="hidden space-y-8">
+            <div class="max-w-3xl mx-auto text-center space-y-3">
+                <span class="text-brand-gold font-bold text-xs uppercase tracking-wider" id="t-trbl-sub">الدعم الفني والحلول السريعة</span>
+                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white" id="t-trbl-title">دليل استكشاف الأعطال وإصلاحها</h2>
+                <p class="text-slate-500 text-sm" id="t-trbl-desc">حلول خطوة بخطوة لأكثر الاستفسارات الشائعة ومشكلات البرمجة مع تطبيق Tuya و TTLock.</p>
+            </div>
+            <div class="max-w-4xl mx-auto space-y-4" id="trouble-accordion"></div>
+        </section>
+
+    </main>
+
+    <!-- MODAL FOR VIEWING DOCUMENTATION DETAILS (PDF DOWNLOAD BUTTON REMOVED) -->
+    <div id="doc-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4 transition-opacity">
+        <div class="bg-white dark:bg-zinc-900 w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden border border-slate-200 dark:border-zinc-800 flex flex-col max-h-[90vh]">
+            
+            <!-- Modal Header -->
+            <div class="px-6 py-4 border-b border-slate-200 dark:border-zinc-800 flex items-center justify-between bg-slate-50 dark:bg-zinc-800/50">
+                <div class="flex items-center gap-3">
+                    <span id="modal-badge" class="px-2.5 py-1 rounded-md text-xs font-bold bg-brand-gold text-black">
+                        G16
+                    </span>
+                    <h3 id="modal-title" class="font-extrabold text-lg text-slate-900 dark:text-white">
+                        قفل G16 الذكي
+                    </h3>
+                </div>
+                <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-zinc-700 text-slate-600 dark:text-slate-300 flex items-center justify-center hover:bg-red-500 hover:text-white transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content Body -->
+            <div class="p-6 overflow-y-auto space-y-6 flex-grow" id="modal-body"></div>
+
+            <!-- Modal Footer (Only Close Button Kept) -->
+            <div class="px-6 py-4 border-t border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-800/50 flex items-center justify-between gap-3">
+                <div class="flex items-center gap-2 text-xs text-slate-500">
+                    <i class="fa-solid fa-shield-check text-emerald-500"></i>
+                    <span id="t-modal-guarantee">مستند معتمد من الدعم الفني لـ SLock Store</span>
+                </div>
+                <button onclick="closeModal()" class="px-6 py-2.5 bg-slate-900 hover:bg-slate-800 dark:bg-zinc-700 dark:hover:bg-zinc-600 text-white font-bold rounded-xl text-sm transition">
+                    <span id="t-btn-close">إغلاق</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-zinc-900 text-slate-400 py-10 border-t border-zinc-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-right flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div>
+                <h4 class="text-white font-extrabold text-lg" id="f-title">متجر الأقفال الذكية - SLock Store</h4>
+                <p class="text-xs text-slate-500" id="f-copy">جميع الحقوق محفوظة © 2026</p>
+            </div>
+            
+            <div class="flex items-center gap-6 text-sm">
+                <a href="#" onclick="switchSection('catalog')" class="hover:text-brand-gold transition" id="f-link-1">الأقفال</a>
+                <a href="#" onclick="switchSection('offers')" class="hover:text-brand-gold transition" id="f-link-offers">العروض والخصومات</a>
+                <a href="#" onclick="switchSection('calculator')" class="hover:text-brand-gold transition" id="f-link-2">الحاسبة</a>
+                <a href="#" onclick="switchSection('troubleshoot')" class="hover:text-brand-gold transition" id="f-link-3">الأعطال</a>
+                <a href="https://wa.me/966920033574" target="_blank" class="hover:text-brand-gold transition text-brand-gold font-bold" id="f-link-4">الدعم الفني المباشر</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- APP SCRIPT & DATA -->
+    <script>
+        let currentLang = 'ar';
+        let currentCategory = 'all';
+
+        const locksData = [
+            {
+                id: 'g16',
+                model: 'G16 Pro',
+                category: 'handle',
+                titleAr: 'قفل ذكي فندقي ومنزلي موديل G16',
+                titleEn: 'G16 Smart Hotel & Home Lock',
+                app: 'TTLock App',
+                connectivity: 'Bluetooth / Gateway',
+                unlockMethods: ['بصمة الإصبع', 'رمز السري', 'بطاقات RFID', 'مفتاح ميكانيكي', 'تطبيق الجوال'],
+                unlockMethodsEn: ['Fingerprint', 'Passcode', 'RFID Card', 'Key', 'Mobile App'],
+                mortise: '5050 / 6052 Mortise',
+                battery: '4x AA Alkaline (سنة كاملة)',
+                freeInstallation: true,
+                docs: {
+                    manualAr: 'دليل المستخدم الشامل لبرمجة البصمة، الكروت، وإنشاء الأكواد المؤقتة للفنادق والشقق السكنية.',
+                    manualEn: 'Complete user manual & programming guide for passcode, RFID, and guest access.',
+                    specs: ['شامل خدمة التركيب المجاني', 'بصمة بيومترية استجابة 0.2 ثانية', 'مقاوم للرطوبة والمياه IP65']
+                }
+            },
+            {
+                id: 'cx8',
+                model: 'CX8 Slim',
+                category: 'slim',
+                titleAr: 'قفل للأبواب الزجاجية والألومنيوم CX8',
+                titleEn: 'CX8 Aluminum & Glass Lock',
+                app: 'TTLock / Tuya',
+                connectivity: 'Bluetooth / Wi-Fi Gateway',
+                unlockMethods: ['بصمة الإصبع', 'رمز السري', 'تطبيق الجوال', 'مفتاح'],
+                unlockMethodsEn: ['Fingerprint', 'Passcode', 'App', 'Key'],
+                mortise: '2885 / 3585 Narrow Mortise',
+                battery: '4x AAA Alkaline',
+                freeInstallation: true,
+                docs: {
+                    manualAr: 'دليل التثبيت السريع للقطاعات الضيقة وحل مشكلات عدم المحاذاة في أسطوانات الألمنيوم.',
+                    manualEn: 'Narrow aluminum profile installation and Mortise alignment guide.',
+                    specs: ['شامل خدمة التركيب المجاني', 'مصنوع من سبائك الألومنيوم المقوى', 'يتوافق مع أسطوانات 35mm الضيقة']
+                }
+            },
+            {
+                id: 'cx5',
+                model: 'CX5 Outdoor',
+                category: 'handle',
+                titleAr: 'قفل الأبواب الخارجية والأسوار موديل CX5',
+                titleEn: 'CX5 Outdoor Waterproof Lock',
+                app: 'TTLock App',
+                connectivity: 'Bluetooth / Wi-Fi',
+                unlockMethods: ['بصمة الإصبع', 'بطاقات RFID', 'رمز سري', 'مفتاح'],
+                unlockMethodsEn: ['Fingerprint', 'RFID Card', 'Passcode', 'Key'],
+                mortise: '6068 Heavy Duty Mortise',
+                battery: '4x AA Alkaline',
+                freeInstallation: true,
+                docs: {
+                    manualAr: 'مواصفات المقاومة العالية للظروف الجوية وأشعة الشمس وطريقة معايرة المفصلات.',
+                    manualEn: 'Outdoor weatherproofing specs and dual-side fingerprint calibration.',
+                    specs: ['شامل خدمة التركيب المجاني', 'مقاوم للحرارة المرتفعة والأمطار', 'قفل أوتوماتيكي مزدوج']
+                }
+            },
+            {
+                id: 'cx1',
+                model: 'CX1 Compact',
+                category: 'handle',
+                titleAr: 'القفل الذكي المدمج موديل CX1',
+                titleEn: 'CX1 Compact Smart Lock',
+                app: 'Tuya Smart / TTLock',
+                connectivity: 'Bluetooth',
+                unlockMethods: ['بصمة الإصبع', 'رمز السري', 'مفتاح ميكانيكي'],
+                unlockMethodsEn: ['Fingerprint', 'Passcode', 'Key'],
+                mortise: 'Single Latch 60/70mm',
+                battery: '4x AAA Alkaline',
+                freeInstallation: true,
+                docs: {
+                    manualAr: 'خطوات استبدال المقبض القديم وتغيير البطاريات وربط مفتاح الطوارئ.',
+                    manualEn: 'Easy retrofit guide for standard doors & emergency key override.',
+                    specs: ['شامل خدمة التركيب المجاني', 'سهل التركيب على نفس ثقب المقبض القديم', 'مقبض مريح ثنائي الاستخدام']
+                }
+            },
+            {
+                id: 'g2-gateway',
+                model: 'Gateway G2',
+                category: 'gateway',
+                titleAr: 'جسر الربط الواي فاي Gateway G2',
+                titleEn: 'Wi-Fi Gateway G2 Hub',
+                app: 'TTLock App',
+                connectivity: 'Wi-Fi 2.4GHz / Bluetooth',
+                unlockMethods: ['فتح عن بعد عبر الإنترنت'],
+                unlockMethodsEn: ['Remote Unlock via Internet'],
+                mortise: 'N/A (جهاز ربط لاسلكي)',
+                battery: 'USB Type-C (5V Power)',
+                freeInstallation: false,
+                docs: {
+                    manualAr: 'شرح ربط الأقفال بالإنترنت للتحكم والفتح عن بعد ومتابعة السجلات لحظياً من أي مكان.',
+                    manualEn: 'Step-by-step setup to connect locks to Wi-Fi for worldwide control.',
+                    specs: ['مدى التغطية اللاسلكية حتى 10 أمتار', 'يتوافق مع جميع أقفال TTLock', 'إشعارات لحظية لفتح الباب']
+                }
+            }
+        ];
+
+        const translations = {
+            ar: {
+                brandTitle: 'متجر الأقفال الذكية',
+                brandSubtitle: 'مركز المستندات والدعم التقني',
+                navCatalog: 'دليل الأجهزة',
+                navOffers: 'العروض والخصومات',
+                navCalc: 'حاسبة التوافق',
+                navTrouble: 'استكشاف الأعطال',
+                heroBadge: 'المكتبة الرقمية الرسمية لأجهزة SLock Store',
+                heroTitle: 'دليل التركيب والتشغيل للأقفال الذكية',
+                heroDesc: 'ابحث عن المخططات الهندسية، أدلة الاستخدام، برمجيات الربط بالتطبيق (Tuya / TTLock)، ومواصفات الأقفال.',
+                reset: 'إعادة ضبط',
+                emptyTitle: 'لم يتم العثور على نتائج',
+                emptyDesc: 'جرّب كلمات بحث أخرى أو تغيير الفلتر المحدد.',
+                offersBadge: 'خصومات وعروض لفترة محدودة',
+                offersTitle: 'العروض والخدمات المضافة الحالية',
+                offersDesc: 'استفد من الكوبونات الحصرية والتركيب المجاني عند الشراء المباشر من متجرنا الإلكتروني.',
+                couponTitle: 'كوبون الخصم الإضافي',
+                couponDesc: 'أدخل الرمز في السلة للحصول على الخصومات الفورية.',
+                off1Title: 'خصم 15% على إجمالي السلة',
+                off1Desc: 'عند وصول مجموع مشترياتك إلى 1000 ريال سعودي أو أكثر (بعد إحساب قيمة الضريبة المضافة)، يتم تطبيق خصم 15% تلقائياً على إجمالي المبلغ.',
+                off2Title: 'خدمة التركيب المجاني بالموقع',
+                off2Desc: 'احصل على خدمة التركيب المجانية بواسطة فريقنا المختص عند الشراء والطلب لموديلات الأقفال التالية:',
+                calcSub: 'أداة القياس التفاعلية',
+                calcTitle: 'حاسبة توافق الأقفال الذكية مع الباب',
+                calcDesc: 'أدخل أبعاد بابك للتأكد من توافق القفل الذكي والحصول على التوصية المناسبة لسنتر القفل (Mortise).',
+                lblThick: 'سمك الباب (Door Thickness)',
+                hintThick: 'المعيار القياسي: 38mm - 70mm',
+                lblStile: 'عرض فريم الباب (Door Stile Width)',
+                hintStile: 'عرض الإطار الخشبي أو الألمنيوم',
+                lblType: 'نوع الباب (Door Material)',
+                optWood: 'خشب طبيعي / كبس (Wooden Door)',
+                optAluminum: 'ألمنيوم / قطاعات ضيقة (Aluminum Slim)',
+                optGlass: 'زجاج سيكوريت بدون فريم (Frameless Glass)',
+                optMetal: 'حديد / معدني خارجي (Metal Door)',
+                resTitle: 'نتيجة التوافق والسنتر المناسب',
+                trblSub: 'الدعم الفني والحلول السريعة',
+                trblTitle: 'دليل استكشاف الأعطال وإصلاحها',
+                trblDesc: 'حلول خطوة بخطوة لأكثر الاستفسارات الشائعة ومشكلات البرمجة مع تطبيق Tuya و TTLock.',
+                btnViewDoc: 'عرض التعليمات والمواصفات',
+                modalGuarantee: 'مستند معتمد من الدعم الفني لـ SLock Store',
+                btnClose: 'إغلاق'
+            },
+            en: {
+                brandTitle: 'SLock Store',
+                brandSubtitle: 'Technical Documentation Hub',
+                navCatalog: 'Devices Guide',
+                navOffers: 'Offers & Discounts',
+                navCalc: 'Compatibility Calculator',
+                navTrouble: 'Troubleshooting',
+                heroBadge: 'Official Digital Library for SLock Store Devices',
+                heroTitle: 'Installation & Programming Manuals',
+                heroDesc: 'Search engineering diagrams, user manuals, app connection guides (Tuya / TTLock), and interactive specs.',
+                reset: 'Reset',
+                emptyTitle: 'No results found',
+                emptyDesc: 'Try adjusting your search terms or changing selected filters.',
+                offersBadge: 'Limited Time Offers & Deals',
+                offersTitle: 'Current Promotions & Added Services',
+                offersDesc: 'Take advantage of exclusive discount coupons and free installation on selected models.',
+                couponTitle: 'Exclusive Discount Coupon',
+                couponDesc: 'Enter the code at checkout to claim your extra discount.',
+                off1Title: '15% Off Your Entire Order',
+                off1Desc: 'Reach a cart total of 1000 SAR (after tax) and automatically receive a 15% discount on your full purchase.',
+                off2Title: 'Free On-Site Installation',
+                off2Desc: 'Enjoy complimentary professional installation service when ordering any of these specific lock models:',
+                calcSub: 'Interactive Measurement Tool',
+                calcTitle: 'Smart Lock Door Compatibility Calculator',
+                calcDesc: 'Enter your door dimensions to verify lock compatibility and get mortise recommendations.',
+                lblThick: 'Door Thickness',
+                hintThick: 'Standard Range: 38mm - 70mm',
+                lblStile: 'Door Stile Width',
+                hintStile: 'Width of wooden or aluminum frame',
+                lblType: 'Door Material',
+                optWood: 'Wooden Door',
+                optAluminum: 'Aluminum / Slim Profile Door',
+                optGlass: 'Frameless Glass Door',
+                optMetal: 'Metal / Armor Door',
+                resTitle: 'Compatibility & Recommended Mortise',
+                trblSub: 'Technical Support & Quick Fixes',
+                trblTitle: 'Troubleshooting & FAQ Guide',
+                trblDesc: 'Step-by-step solutions for common programming issues with Tuya and TTLock apps.',
+                btnViewDoc: 'View Manual & Specs',
+                modalGuarantee: 'Verified Documentation by SLock Store Support',
+                btnClose: 'Close'
+            }
+        };
+
+        const faqs = [
+            {
+                qAr: 'كيف أقوم بربط الجسر (Gateway G2) بالقفل والواي فاي؟',
+                qEn: 'How to pair Gateway G2 with TTLock and Wi-Fi?',
+                aAr: '1. قم بتوصيل الجسر بفرع الطاقة القريب من القفل (ضمن 10 أمتار).<br>2. افتح تطبيق TTLock ثم اختر (Gateway) ثم اضغط (+).<br>3. اختر شبكة الـ Wi-Fi بتردد 2.4GHz وادخل كلمة المرور.<br>4. سيتعرف الجسر تلقائياً على الأقفال المربوطة بحسابك.',
+                aEn: '1. Plug in the Gateway G2 near the lock (within 10m).<br>2. Open TTLock, tap (Gateway) -> (+).<br>3. Select 2.4GHz Wi-Fi and enter password.<br>4. It will auto-detect locks linked to your account.'
+            },
+            {
+                qAr: 'كيف يمكنني الاستفادة من خدمة التركيب المجاني لموديلات (G16, CX8, CX5, CX1)؟',
+                qEn: 'How do I claim free installation for models G16, CX8, CX5, CX1?',
+                aAr: 'بعد إتمام طلب القفل عبر المتجر، تواصل مع فريق خدمة العملاء على الرقم الموحد +966 9200 33574 لإرسال الفني في الموعد المناسب لك.',
+                aEn: 'After completing your order online, contact customer support at +966 9200 33574 to schedule your technician.'
+            },
+            {
+                qAr: 'ماذا أفعل في حال نفاد البطارية بالكامل والقفل مغلق؟',
+                qEn: 'What should I do if batteries die completely while locked out?',
+                aAr: '1. يمكنك استخدام المفتاح الميكانيكي الطوارئ المرفق.<br>2. أو توصيل بنك طاقة (Power Bank) عبر منفذ Type-C/Micro-USB السفلي لتشغيل شاشة القفل مؤقتاً.',
+                aEn: '1. Use the emergency mechanical key provided.<br>2. Connect a Power Bank via the emergency Type-C/Micro-USB port at the bottom to power up temporarily.'
+            }
+        ];
+
+        window.onload = function() {
+            renderCategories();
+            renderCatalog();
+            calculateCompatibility();
+            renderFAQs();
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            
+            if (currentLang === 'en') {
+                document.body.classList.add('en-mode');
+                document.getElementById('lang-label').innerText = 'العربية';
+            } else {
+                document.body.classList.remove('en-mode');
+                document.getElementById('lang-label').innerText = 'English';
+            }
+
+            const t = translations[currentLang];
+            document.getElementById('nav-brand-title').innerText = t.brandTitle;
+            document.getElementById('nav-brand-subtitle').innerText = t.brandSubtitle;
+            document.getElementById('t-nav-catalog').innerText = t.navCatalog;
+            document.getElementById('t-nav-offers').innerText = t.navOffers;
+            document.getElementById('t-nav-calc').innerText = t.navCalc;
+            document.getElementById('t-nav-trouble').innerText = t.navTrouble;
+            document.getElementById('t-hero-badge').innerText = t.heroBadge;
+            document.getElementById('t-hero-title').innerText = t.heroTitle;
+            document.getElementById('t-hero-desc').innerText = t.heroDesc;
+            document.getElementById('t-reset').innerText = t.reset;
+            document.getElementById('t-empty-title').innerText = t.emptyTitle;
+            document.getElementById('t-empty-desc').innerText = t.emptyDesc;
+
+            document.getElementById('t-offers-badge').innerText = t.offersBadge;
+            document.getElementById('t-offers-title').innerText = t.offersTitle;
+            document.getElementById('t-offers-desc').innerText = t.offersDesc;
+            document.getElementById('t-coupon-title').innerText = t.couponTitle;
+            document.getElementById('t-coupon-desc').innerText = t.couponDesc;
+            document.getElementById('t-off1-title').innerText = t.off1Title;
+            document.getElementById('t-off1-desc').innerText = t.off1Desc;
+            document.getElementById('t-off2-title').innerText = t.off2Title;
+            document.getElementById('t-off2-desc').innerText = t.off2Desc;
+
+            document.getElementById('t-calc-sub').innerText = t.calcSub;
+            document.getElementById('t-calc-title').innerText = t.calcTitle;
+            document.getElementById('t-calc-desc').innerText = t.calcDesc;
+            document.getElementById('t-lbl-thick').innerText = t.lblThick;
+            document.getElementById('t-hint-thick').innerText = t.hintThick;
+            document.getElementById('t-lbl-stile').innerText = t.lblStile;
+            document.getElementById('t-hint-stile').innerText = t.hintStile;
+            document.getElementById('t-lbl-type').innerText = t.lblType;
+            document.getElementById('opt-wood').innerText = t.optWood;
+            document.getElementById('opt-aluminum').innerText = t.optAluminum;
+            document.getElementById('opt-glass').innerText = t.optGlass;
+            document.getElementById('opt-metal').innerText = t.optMetal;
+            document.getElementById('t-res-title').innerText = t.resTitle;
+            document.getElementById('t-trbl-sub').innerText = t.trblSub;
+            document.getElementById('t-trbl-title').innerText = t.trblTitle;
+            document.getElementById('t-trbl-desc').innerText = t.trblDesc;
+            document.getElementById('t-modal-guarantee').innerText = t.modalGuarantee;
+            document.getElementById('t-btn-close').innerText = t.btnClose;
+
+            document.getElementById('f-title').innerText = t.brandTitle + ' - SLock Store';
+
+            renderCategories();
+            renderCatalog();
+            calculateCompatibility();
+            renderFAQs();
+        }
+
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+        }
+
+        function switchSection(secId) {
+            ['catalog', 'offers', 'calculator', 'troubleshoot'].forEach(id => {
+                const el = document.getElementById(`sec-${id}`);
+                const btn = document.getElementById(`nav-btn-${id}`);
+                if (id === secId) {
+                    el.classList.remove('hidden');
+                    btn.className = "px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-white dark:bg-zinc-900 shadow-sm text-slate-900 dark:text-white border border-slate-200 dark:border-zinc-700";
+                } else {
+                    el.classList.add('hidden');
+                    btn.className = "px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all";
+                }
+            });
+        }
+
+        function renderCategories() {
+            const categories = [
+                { id: 'all', nameAr: 'جميع المنتجات', nameEn: 'All Devices' },
+                { id: 'handle', nameAr: 'أقفال الأبواب والمقابض', nameEn: 'Smart Locks' },
+                { id: 'slim', nameAr: 'قطاعات ألمنيوم ضيقة', nameEn: 'Slim Profiles' },
+                { id: 'gateway', nameAr: 'بوابات الواي فاي (Gateways)', nameEn: 'Wi-Fi Gateways' }
+            ];
+
+            const container = document.getElementById('category-filters');
+            container.innerHTML = categories.map(cat => {
+                const isActive = currentCategory === cat.id;
+                const activeClass = isActive 
+                    ? 'bg-zinc-900 text-white dark:bg-brand-gold dark:text-black font-bold' 
+                    : 'bg-white text-slate-600 border border-slate-200 dark:bg-zinc-900 dark:border-zinc-800 dark:text-slate-300 hover:border-brand-gold';
+                return `
+                    <button onclick="setCategory('${cat.id}')" class="px-4 py-2.5 rounded-2xl text-xs sm:text-sm whitespace-nowrap transition-all shadow-sm ${activeClass}">
+                        ${currentLang === 'ar' ? cat.nameAr : cat.nameEn}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function setCategory(catId) {
+            currentCategory = catId;
+            renderCategories();
+            renderCatalog();
+        }
+
+        function renderCatalog() {
+            const searchVal = document.getElementById('search-input').value.toLowerCase().trim();
+            const grid = document.getElementById('catalog-grid');
+            const emptyState = document.getElementById('empty-state');
+
+            const filtered = locksData.filter(lock => {
+                const matchesCat = currentCategory === 'all' || lock.category === currentCategory;
+                const title = (currentLang === 'ar' ? lock.titleAr : lock.titleEn).toLowerCase();
+                const model = lock.model.toLowerCase();
+                const app = lock.app.toLowerCase();
+                const id = lock.id.toLowerCase();
+                const matchesSearch = title.includes(searchVal) || model.includes(searchVal) || app.includes(searchVal) || id.includes(searchVal);
+                return matchesCat && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            grid.innerHTML = filtered.map(lock => {
+                const title = currentLang === 'ar' ? lock.titleAr : lock.titleEn;
+                const methods = currentLang === 'ar' ? lock.unlockMethods : lock.unlockMethodsEn;
+                const freeBadge = lock.freeInstallation 
+                    ? `<span class="bg-emerald-500/10 text-emerald-500 border border-emerald-500/30 text-[11px] font-bold px-2.5 py-0.5 rounded-md flex items-center gap-1"><i class="fa-solid fa-screwdriver-wrench"></i> تركيب مجاني</span>` 
+                    : '';
+                
+                return `
+                    <div class="bg-white dark:bg-zinc-900 rounded-3xl p-6 border border-slate-200 dark:border-zinc-800 shadow-sm hover:shadow-md transition flex flex-col justify-between group">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="px-3 py-1 bg-slate-100 dark:bg-zinc-800 text-slate-800 dark:text-slate-200 font-extrabold text-xs rounded-lg border border-slate-200 dark:border-zinc-700">
+                                    ${lock.model}
+                                </span>
+                                ${freeBadge}
+                            </div>
+
+                            <h3 class="text-lg font-extrabold text-slate-900 dark:text-white mb-3 group-hover:text-brand-gold transition">
+                                ${title}
+                            </h3>
+
+                            <div class="space-y-2 text-xs text-slate-600 dark:text-slate-400 mb-6">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-mobile-screen text-brand-gold"></i>
+                                    <span><strong>التطبيق:</strong> ${lock.app}</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-layer-group text-slate-400"></i>
+                                    <span><strong>السنتر (Mortise):</strong> ${lock.mortise}</span>
+                                </div>
+                                <div class="flex flex-wrap gap-1 mt-3">
+                                    ${methods.map(m => `<span class="bg-slate-50 dark:bg-zinc-800/80 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded text-[11px] border border-slate-100 dark:border-zinc-700/50">${m}</span>`).join('')}
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="openModal('${lock.id}')" class="w-full py-3 bg-slate-900 hover:bg-brand-gold hover:text-black text-white dark:bg-zinc-800 dark:hover:bg-brand-gold dark:hover:text-black font-bold rounded-2xl text-xs transition duration-200 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-book-open"></i>
+                            <span>${translations[currentLang].btnViewDoc}</span>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function copyCouponCode() {
+            const code = document.getElementById('coupon-code-text').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                const label = document.getElementById('copy-btn-label');
+                label.innerText = currentLang === 'ar' ? 'تم النسخ!' : 'Copied!';
+                setTimeout(() => {
+                    label.innerText = currentLang === 'ar' ? 'نسخ الكوبون' : 'Copy Coupon';
+                }, 2000);
+            });
+        }
+
+        function searchProductFromOffer(code) {
+            switchSection('catalog');
+            document.getElementById('search-input').value = code;
+            renderCatalog();
+        }
+
+        function calculateCompatibility() {
+            const thick = parseFloat(document.getElementById('calc-thick').value) || 0;
+            const stile = parseFloat(document.getElementById('calc-stile').value) || 0;
+            const type = document.getElementById('calc-type').value;
+            const resBox = document.getElementById('calc-result-box');
+
+            let isCompatible = true;
+            let statusBadge = '<span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-bold rounded-full border border-emerald-500/30">متوافق ممتاز ✓</span>';
+            let recommendedMortise = '';
+            let note = '';
+
+            if (type === 'glass') {
+                recommendedMortise = 'SL-Glass Special Bolt (بدون سنتر)';
+                note = 'مناسب لجميع أبواب الزجاج السيكوريت سمك 10mm-12mm بدون الحاجة إلى خرق الزجاج.';
+            } else if (type === 'aluminum' || stile < 80) {
+                recommendedMortise = 'Mortise 2885 / 3585 (Model CX8)';
+                note = 'يناسب قفل CX8 المخصص للألومنيوم والقطاعات الضيقة.';
+            } else {
+                if (thick < 35) {
+                    isCompatible = false;
+                    statusBadge = '<span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 text-xs font-bold rounded-full border border-yellow-500/30">تحتاج حشوة خشبية</span>';
+                    note = 'سمك الباب أقل من 35mm. يُنصح باستشارة الدعم الفني +966 9200 33574.';
+                } else {
+                    recommendedMortise = 'Standard Mortise 5050 / 6052 / 6068 (G16 & CX5)';
+                    note = 'يناسب أقفال المقابض القياسية الكبيرة مثل G16 و CX5.';
+                }
+            }
+
+            resBox.innerHTML = `
+                <div class="flex items-center justify-between pb-3 border-b border-zinc-800">
+                    <span class="text-xs text-slate-400">حالة التوافق:</span>
+                    ${statusBadge}
+                </div>
+                <div class="space-y-1">
+                    <span class="text-xs text-slate-400 block">السنتر المقترح (Recommended Mortise):</span>
+                    <p class="font-extrabold text-brand-gold text-base">${recommendedMortise}</p>
+                </div>
+                <div class="bg-zinc-800/50 p-3 rounded-xl border border-zinc-700/50 text-xs text-slate-300">
+                    <i class="fa-solid fa-circle-info text-brand-gold ml-1"></i>
+                    ${note}
+                </div>
+            `;
+        }
+
+        function renderFAQs() {
+            const container = document.getElementById('trouble-accordion');
+            container.innerHTML = faqs.map((faq, idx) => {
+                const q = currentLang === 'ar' ? faq.qAr : faq.qEn;
+                const a = currentLang === 'ar' ? faq.aAr : faq.aEn;
+                return `
+                    <div class="bg-white dark:bg-zinc-900 rounded-2xl border border-slate-200 dark:border-zinc-800 overflow-hidden shadow-sm">
+                        <button onclick="toggleFaq(${idx})" class="w-full px-6 py-4 text-right ltr:text-left font-bold text-slate-900 dark:text-white flex items-center justify-between gap-4 hover:bg-slate-50 dark:hover:bg-zinc-800/50 transition">
+                            <span class="text-sm sm:text-base">${q}</span>
+                            <i id="faq-icon-${idx}" class="fa-solid fa-chevron-down text-brand-gold transition-transform"></i>
+                        </button>
+                        <div id="faq-ans-${idx}" class="hidden px-6 pb-5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-zinc-800/50 pt-3">
+                            ${a}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function toggleFaq(idx) {
+            const ans = document.getElementById(`faq-ans-${idx}`);
+            const icon = document.getElementById(`faq-icon-${idx}`);
+            if (ans.classList.contains('hidden')) {
+                ans.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                ans.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function openModal(lockId) {
+            const lock = locksData.find(l => l.id === lockId);
+            if (!lock) return;
+
+            document.getElementById('modal-badge').innerText = lock.model;
+            document.getElementById('modal-title').innerText = currentLang === 'ar' ? lock.titleAr : lock.titleEn;
+
+            const modalBody = document.getElementById('modal-body');
+            modalBody.innerHTML = `
+                <div class="bg-slate-50 dark:bg-zinc-800/50 p-4 rounded-2xl border border-slate-200 dark:border-zinc-700/50 space-y-2">
+                    <h4 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-circle-info text-brand-gold"></i> دليل الاستخدام والتشغيل
+                    </h4>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        ${currentLang === 'ar' ? lock.docs.manualAr : lock.docs.manualEn}
+                    </p>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="font-bold text-sm text-slate-900 dark:text-white">المواصفات التقنية الرسمية:</h4>
+                    <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
+                        ${lock.docs.specs.map(s => `<li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> ${s}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="border border-slate-200 dark:border-zinc-800 rounded-2xl p-6 text-center bg-zinc-950 text-white space-y-3">
+                    <i class="fa-solid fa-compass-drafting text-3xl text-brand-gold"></i>
+                    <h5 class="text-xs font-bold uppercase tracking-wider text-slate-400">مخطط الأبعاد والقص الهيكلي (Mortise Cutout)</h5>
+                    <div class="p-4 bg-zinc-900 rounded-xl font-mono text-[11px] text-brand-gold inline-block">
+                        Mortise: ${lock.mortise} | Connectivity: ${lock.connectivity}
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('doc-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('doc-modal').classList.add('hidden');
+        }
+
+        function resetFilters() {
+            document.getElementById('search-input').value = '';
+            currentCategory = 'all';
+            renderCategories();
+            renderCatalog();
+        }
+    </script>
+</body>
+</html>
