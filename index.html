@@ -82,18 +82,18 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 
-                <!-- BRAND TEXT ONLY (LOGO REMOVED) -->
+                <!-- BRAND TEXT ONLY -->
                 <div class="flex items-center gap-3 cursor-pointer" onclick="switchSection('catalog')">
                     <div>
                         <div class="flex items-center gap-2">
-                            <span class="font-extrabold text-2xl tracking-tight text-slate-900 dark:text-white" id="nav-brand-title">متجر الأقفال الذكية</span>
-                            <span class="bg-brand-gold text-xs text-black font-bold px-2.5 py-0.5 rounded-full uppercase">SLock</span>
+                            <span class="font-extrabold text-lg sm:text-2xl tracking-tight text-slate-900 dark:text-white" id="nav-brand-title">متجر الأقفال الذكية</span>
+                            <span class="bg-brand-gold text-[10px] sm:text-xs text-black font-bold px-2 py-0.5 rounded-full uppercase">SLock</span>
                         </div>
-                        <p class="text-xs text-slate-500 dark:text-slate-400" id="nav-brand-subtitle">مركز المستندات والدعم التقني</p>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400" id="nav-brand-subtitle">مركز المستندات والدعم التقني</p>
                     </div>
                 </div>
 
-                <!-- NAVIGATION LINKS -->
+                <!-- DESKTOP NAVIGATION LINKS -->
                 <nav class="hidden md:flex items-center gap-1 bg-slate-100 dark:bg-zinc-800/60 p-1.5 rounded-xl border border-slate-200 dark:border-zinc-700/50">
                     <button onclick="switchSection('catalog')" id="nav-btn-catalog" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-white dark:bg-zinc-900 shadow-sm text-slate-900 dark:text-white">
                         <i class="fa-solid fa-book-bookmark ml-1.5 mr-1.5"></i> <span id="t-nav-catalog">دليل الأجهزة</span>
@@ -111,9 +111,9 @@
                 </nav>
 
                 <!-- ACTIONS & CONTROLS -->
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 sm:gap-3">
                     <!-- Language Switcher -->
-                    <button onclick="toggleLanguage()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-zinc-700 text-xs font-bold bg-white dark:bg-zinc-900 hover:bg-slate-50 dark:hover:bg-zinc-800 transition">
+                    <button onclick="toggleLanguage()" class="flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-zinc-700 text-xs font-bold bg-white dark:bg-zinc-900 hover:bg-slate-50 dark:hover:bg-zinc-800 transition">
                         <i class="fa-solid fa-globe text-brand-gold"></i>
                         <span id="lang-label">English</span>
                     </button>
@@ -125,11 +125,38 @@
                     </button>
 
                     <!-- Phone Support Button Single Line -->
-                    <a href="tel:+966920033574" class="hidden sm:inline-flex items-center justify-center gap-2 bg-brand-gold hover:bg-brand-gold-dark text-black font-extrabold px-4 py-2.5 rounded-xl text-sm transition shadow-sm hover:shadow whitespace-nowrap" dir="ltr">
+                    <a href="tel:+966920033574" class="hidden sm:inline-flex items-center justify-center gap-2 bg-brand-gold hover:bg-brand-gold-dark text-black font-extrabold px-3 py-2 rounded-xl text-xs transition shadow-sm whitespace-nowrap" dir="ltr">
                         <i class="fa-solid fa-phone text-xs"></i>
                         <span>+966 9200 33574</span>
                     </a>
+
+                    <!-- Mobile Hamburger Toggle Button -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-slate-800 dark:text-white">
+                        <i class="fa-solid fa-bars text-lg" id="mobile-menu-icon"></i>
+                    </button>
                 </div>
+            </div>
+        </div>
+
+        <!-- MOBILE DROPDOWN MENU -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-zinc-900 border-b border-slate-200 dark:border-zinc-800 px-4 py-4 space-y-2">
+            <button onclick="switchSection('catalog'); toggleMobileMenu();" class="w-full text-right px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-zinc-800 transition flex items-center gap-2">
+                <i class="fa-solid fa-book-bookmark text-brand-gold"></i> <span id="m-nav-catalog">دليل الأجهزة</span>
+            </button>
+            <button onclick="switchSection('offers'); toggleMobileMenu();" class="w-full text-right px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-zinc-800 transition flex items-center gap-2">
+                <i class="fa-solid fa-tags text-brand-gold"></i> <span id="m-nav-offers">العروض والخصومات</span>
+            </button>
+            <button onclick="switchSection('calculator'); toggleMobileMenu();" class="w-full text-right px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-zinc-800 transition flex items-center gap-2">
+                <i class="fa-solid fa-ruler-combined text-brand-gold"></i> <span id="m-nav-calc">حاسبة التوافق</span>
+            </button>
+            <button onclick="switchSection('troubleshoot'); toggleMobileMenu();" class="w-full text-right px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-zinc-800 transition flex items-center gap-2">
+                <i class="fa-solid fa-wrench text-brand-gold"></i> <span id="m-nav-trouble">استكشاف الأعطال</span>
+            </button>
+            <div class="pt-2 border-t border-slate-200 dark:border-zinc-800">
+                <a href="tel:+966920033574" class="w-full flex items-center justify-center gap-2 bg-brand-gold text-black font-extrabold py-2.5 rounded-xl text-xs" dir="ltr">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>+966 9200 33574</span>
+                </a>
             </div>
         </div>
     </header>
@@ -139,7 +166,7 @@
 
         <!-- SECTION 1: CATALOG & SEARCH -->
         <section id="sec-catalog" class="space-y-8">
-            <div class="bg-gradient-to-r from-zinc-900 via-slate-900 to-zinc-900 text-white rounded-3xl p-8 md:p-12 shadow-xl relative overflow-hidden border border-zinc-800">
+            <div class="bg-gradient-to-r from-zinc-900 via-slate-900 to-zinc-900 text-white rounded-3xl p-6 sm:p-12 shadow-xl relative overflow-hidden border border-zinc-800">
                 <div class="absolute -right-10 -bottom-10 w-60 h-60 opacity-10 pointer-events-none">
                     <i class="fa-solid fa-shield-halved text-[220px] text-brand-gold"></i>
                 </div>
@@ -147,18 +174,18 @@
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-gold/20 text-brand-gold text-xs font-bold border border-brand-gold/30">
                         <i class="fa-solid fa-circle-check"></i> <span id="t-hero-badge">المكتبة الرقمية الرسمية لأجهزة SLock Store</span>
                     </div>
-                    <h1 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight" id="t-hero-title">
+                    <h1 class="text-2xl sm:text-5xl font-black tracking-tight leading-tight" id="t-hero-title">
                         دليل التركيب والتشغيل للأقفال الذكية
                     </h1>
-                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed" id="t-hero-desc">
+                    <p class="text-slate-300 text-xs sm:text-base leading-relaxed" id="t-hero-desc">
                         ابحث عن المخططات الهندسية، أدلة الاستخدام، برمجيات الربط بالتطبيق (Tuya / TTLock)، ومواصفات الأقفال.
                     </p>
 
                     <!-- Search Box -->
-                    <div class="pt-4 flex flex-col sm:flex-row gap-3">
+                    <div class="pt-2 flex flex-col sm:flex-row gap-3">
                         <div class="relative flex-grow">
-                            <i class="fa-solid fa-magnifying-glass absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 rtl:right-4 ltr:left-4 ltr:right-auto"></i>
-                            <input type="text" id="search-input" oninput="renderCatalog()" placeholder="ابحث باسم القفل، الموديل (مثال: G16, CX8)، أو طريقة الفتح..." class="w-full pr-11 pl-4 ltr:pl-11 ltr:pr-4 py-3.5 rounded-2xl bg-white/10 backdrop-blur border border-white/20 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-gold transition text-sm">
+                            <i class="fa-solid fa-magnifying-glass absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500"></i>
+                            <input type="text" id="search-input" oninput="renderCatalog()" placeholder="ابحث باسم القفل، الموديل (مثال: G16, CX8)..." class="w-full pr-11 pl-4 py-3.5 rounded-2xl bg-white/10 backdrop-blur border border-white/20 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-gold transition text-sm">
                         </div>
                         <button onclick="resetFilters()" class="px-5 py-3.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-2xl text-sm transition flex items-center justify-center gap-2 border border-slate-700">
                             <i class="fa-solid fa-rotate-left"></i> <span id="t-reset">إعادة ضبط</span>
@@ -168,7 +195,7 @@
             </div>
 
             <!-- Category Filters -->
-            <div class="flex items-center justify-between gap-4 overflow-x-auto pb-2 scrollbar-none" id="category-filters"></div>
+            <div class="flex items-center justify-start sm:justify-between gap-3 overflow-x-auto pb-2 scrollbar-none" id="category-filters"></div>
 
             <!-- Catalog Grid -->
             <div id="catalog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
@@ -187,7 +214,7 @@
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-gold/20 text-brand-gold text-xs font-bold border border-brand-gold/30">
                     <i class="fa-solid fa-bolt"></i> <span id="t-offers-badge">خصومات وعروض لفترة محدودة</span>
                 </div>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white" id="t-offers-title">العروض والخدمات المضافة الحالية</h2>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white" id="t-offers-title">العروض والخدمات المضافة الحالية</h2>
                 <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed" id="t-offers-desc">استفد من الكوبونات الحصرية والتركيب المجاني عند الشراء المباشر من متجرنا الإلكتروني.</p>
             </div>
 
@@ -283,7 +310,7 @@
                                 <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2" id="t-lbl-thick">سمك الباب (Door Thickness)</label>
                                 <div class="relative">
                                     <input type="number" id="calc-thick" value="45" min="20" max="120" oninput="calculateCompatibility()" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 font-bold text-lg text-slate-900 dark:text-white focus:ring-2 focus:ring-brand-gold outline-none">
-                                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold ltr:right-3 ltr:left-auto">mm</span>
+                                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold">mm</span>
                                 </div>
                                 <p class="text-[11px] text-slate-500 mt-2" id="t-hint-thick">المعيار القياسي: 38mm - 70mm</p>
                             </div>
@@ -292,7 +319,7 @@
                                 <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2" id="t-lbl-stile">عرض فريم الباب (Door Stile Width)</label>
                                 <div class="relative">
                                     <input type="number" id="calc-stile" value="110" min="30" max="250" oninput="calculateCompatibility()" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 font-bold text-lg text-slate-900 dark:text-white focus:ring-2 focus:ring-brand-gold outline-none">
-                                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold ltr:right-3 ltr:left-auto">mm</span>
+                                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold">mm</span>
                                 </div>
                                 <p class="text-[11px] text-slate-500 mt-2" id="t-hint-stile">عرض الإطار الخشبي أو الألمنيوم</p>
                             </div>
@@ -324,7 +351,7 @@
         <section id="sec-troubleshoot" class="hidden space-y-8">
             <div class="max-w-3xl mx-auto text-center space-y-3">
                 <span class="text-brand-gold font-bold text-xs uppercase tracking-wider" id="t-trbl-sub">الدعم الفني والحلول السريعة</span>
-                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white" id="t-trbl-title">دليل استكشاف الأعطال وإصلاحها</h2>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white" id="t-trbl-title">دليل استكشاف الأعطال وإصلاحها</h2>
                 <p class="text-slate-500 text-sm" id="t-trbl-desc">حلول خطوة بخطوة لأكثر الاستفسارات الشائعة ومشكلات البرمجة مع تطبيق Tuya و TTLock.</p>
             </div>
             <div class="max-w-4xl mx-auto space-y-4" id="trouble-accordion"></div>
@@ -332,7 +359,7 @@
 
     </main>
 
-    <!-- MODAL FOR VIEWING DOCUMENTATION DETAILS (PDF DOWNLOAD BUTTON REMOVED) -->
+    <!-- MODAL FOR VIEWING DOCUMENTATION DETAILS -->
     <div id="doc-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4 transition-opacity">
         <div class="bg-white dark:bg-zinc-900 w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden border border-slate-200 dark:border-zinc-800 flex flex-col max-h-[90vh]">
             
@@ -354,7 +381,7 @@
             <!-- Modal Content Body -->
             <div class="p-6 overflow-y-auto space-y-6 flex-grow" id="modal-body"></div>
 
-            <!-- Modal Footer (Only Close Button Kept) -->
+            <!-- Modal Footer -->
             <div class="px-6 py-4 border-t border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-800/50 flex items-center justify-between gap-3">
                 <div class="flex items-center gap-2 text-xs text-slate-500">
                     <i class="fa-solid fa-shield-check text-emerald-500"></i>
@@ -371,11 +398,11 @@
     <footer class="bg-zinc-900 text-slate-400 py-10 border-t border-zinc-800 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-right flex flex-col sm:flex-row items-center justify-between gap-6">
             <div>
-                <h4 class="text-white font-extrabold text-lg" id="f-title">متجر الأقفال الذكية - SLock Store</h4>
+                <h4 class="text-white font-extrabold text-base sm:text-lg" id="f-title">متجر الأقفال الذكية - SLock Store</h4>
                 <p class="text-xs text-slate-500" id="f-copy">جميع الحقوق محفوظة © 2026</p>
             </div>
             
-            <div class="flex items-center gap-6 text-sm">
+            <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs sm:text-sm">
                 <a href="#" onclick="switchSection('catalog')" class="hover:text-brand-gold transition" id="f-link-1">الأقفال</a>
                 <a href="#" onclick="switchSection('offers')" class="hover:text-brand-gold transition" id="f-link-offers">العروض والخصومات</a>
                 <a href="#" onclick="switchSection('calculator')" class="hover:text-brand-gold transition" id="f-link-2">الحاسبة</a>
@@ -496,6 +523,10 @@
                 navOffers: 'العروض والخصومات',
                 navCalc: 'حاسبة التوافق',
                 navTrouble: 'استكشاف الأعطال',
+                mNavCatalog: 'دليل الأجهزة',
+                mNavOffers: 'العروض والخصومات',
+                mNavCalc: 'حاسبة التوافق',
+                mNavTrouble: 'استكشاف الأعطال',
                 heroBadge: 'المكتبة الرقمية الرسمية لأجهزة SLock Store',
                 heroTitle: 'دليل التركيب والتشغيل للأقفال الذكية',
                 heroDesc: 'ابحث عن المخططات الهندسية، أدلة الاستخدام، برمجيات الربط بالتطبيق (Tuya / TTLock)، ومواصفات الأقفال.',
@@ -538,6 +569,10 @@
                 navOffers: 'Offers & Discounts',
                 navCalc: 'Compatibility Calculator',
                 navTrouble: 'Troubleshooting',
+                mNavCatalog: 'Devices Guide',
+                mNavOffers: 'Offers & Discounts',
+                mNavCalc: 'Compatibility Calculator',
+                mNavTrouble: 'Troubleshooting',
                 heroBadge: 'Official Digital Library for SLock Store Devices',
                 heroTitle: 'Installation & Programming Manuals',
                 heroDesc: 'Search engineering diagrams, user manuals, app connection guides (Tuya / TTLock), and interactive specs.',
@@ -603,6 +638,17 @@
             renderFAQs();
         };
 
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-menu-icon');
+            menu.classList.toggle('hidden');
+            if (menu.classList.contains('hidden')) {
+                icon.className = 'fa-solid fa-bars text-lg';
+            } else {
+                icon.className = 'fa-solid fa-xmark text-lg';
+            }
+        }
+
         function toggleLanguage() {
             currentLang = currentLang === 'ar' ? 'en' : 'ar';
             document.documentElement.lang = currentLang;
@@ -623,6 +669,12 @@
             document.getElementById('t-nav-offers').innerText = t.navOffers;
             document.getElementById('t-nav-calc').innerText = t.navCalc;
             document.getElementById('t-nav-trouble').innerText = t.navTrouble;
+
+            document.getElementById('m-nav-catalog').innerText = t.mNavCatalog;
+            document.getElementById('m-nav-offers').innerText = t.mNavOffers;
+            document.getElementById('m-nav-calc').innerText = t.mNavCalc;
+            document.getElementById('m-nav-trouble').innerText = t.mNavTrouble;
+
             document.getElementById('t-hero-badge').innerText = t.heroBadge;
             document.getElementById('t-hero-title').innerText = t.heroTitle;
             document.getElementById('t-hero-desc').innerText = t.heroDesc;
@@ -677,10 +729,10 @@
                 const btn = document.getElementById(`nav-btn-${id}`);
                 if (id === secId) {
                     el.classList.remove('hidden');
-                    btn.className = "px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-white dark:bg-zinc-900 shadow-sm text-slate-900 dark:text-white border border-slate-200 dark:border-zinc-700";
+                    if(btn) btn.className = "px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-white dark:bg-zinc-900 shadow-sm text-slate-900 dark:text-white border border-slate-200 dark:border-zinc-700";
                 } else {
                     el.classList.add('hidden');
-                    btn.className = "px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all";
+                    if(btn) btn.className = "px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all";
                 }
             });
         }
@@ -700,7 +752,7 @@
                     ? 'bg-zinc-900 text-white dark:bg-brand-gold dark:text-black font-bold' 
                     : 'bg-white text-slate-600 border border-slate-200 dark:bg-zinc-900 dark:border-zinc-800 dark:text-slate-300 hover:border-brand-gold';
                 return `
-                    <button onclick="setCategory('${cat.id}')" class="px-4 py-2.5 rounded-2xl text-xs sm:text-sm whitespace-nowrap transition-all shadow-sm ${activeClass}">
+                    <button onclick="setCategory('${cat.id}')" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm whitespace-nowrap transition-all shadow-sm ${activeClass}">
                         ${currentLang === 'ar' ? cat.nameAr : cat.nameEn}
                     </button>
                 `;
@@ -739,7 +791,7 @@
                 const title = currentLang === 'ar' ? lock.titleAr : lock.titleEn;
                 const methods = currentLang === 'ar' ? lock.unlockMethods : lock.unlockMethodsEn;
                 const freeBadge = lock.freeInstallation 
-                    ? `<span class="bg-emerald-500/10 text-emerald-500 border border-emerald-500/30 text-[11px] font-bold px-2.5 py-0.5 rounded-md flex items-center gap-1"><i class="fa-solid fa-screwdriver-wrench"></i> تركيب مجاني</span>` 
+                    ? `<span class="bg-emerald-500/10 text-emerald-500 border border-emerald-500/30 text-[11px] font-bold px-2 py-0.5 rounded-md flex items-center gap-1"><i class="fa-solid fa-screwdriver-wrench"></i> تركيب مجاني</span>` 
                     : '';
                 
                 return `
